@@ -306,10 +306,10 @@
 			if(Iso==1 && ID==1  )recottree_QCD200->Project(Form("histo_Back6%d_%d",Iso,ID),"recoMuon.Pt()",PF_Loose_Cut200);
 
 			histo_Eff1[Iso][ID] = new TH1F(Form("histo_Eff1%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
-			histo_Eff2[Iso][ID] = new TH1F(Form("histo_Eff1%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
+			histo_Eff2[Iso][ID] = new TH1F(Form("histo_Eff2%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 			histo_Eff3[Iso][ID] = new TH1F(Form("histo_Eff3%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 			histo_Eff4[Iso][ID] = new TH1F(Form("histo_Eff4%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
-			histo_Eff5[Iso][ID] = new TH1F(Form("histo_Eff1%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
+			histo_Eff5[Iso][ID] = new TH1F(Form("histo_Eff5%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 			histo_Eff6[Iso][ID] = new TH1F(Form("histo_Eff6%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 			//---------------------------histogram design------------------------------------
 
@@ -339,6 +339,12 @@
 			histo_Eff4[Iso][ID]->SetLineWidth(2);
 			histo_Eff4[Iso][ID]->SetMarkerStyle(34);
 
+			histo_Eff5[Iso][ID]->SetLineColor(kBlue+3);
+                        histo_Eff5[Iso][ID]->SetMarkerColor(kBlue+3);
+                        histo_Eff5[Iso][ID]->SetMarkerSize(size);
+                        histo_Eff5[Iso][ID]->SetLineWidth(2);
+                        histo_Eff5[Iso][ID]->SetMarkerStyle(34);
+
 			histo_Eff6[Iso][ID]->SetLineColor(kBlue);
 			histo_Eff6[Iso][ID]->SetMarkerColor(kBlue);
 			histo_Eff6[Iso][ID]->SetMarkerSize(size);
@@ -350,12 +356,14 @@
 			l_[Iso][ID]->AddEntry(histo_Eff2[Iso][ID],"Phase II Signal PU140", "p");
 			l_[Iso][ID]->AddEntry(histo_Eff3[Iso][ID],"Phase II Signal PU200", "p");
 			l_[Iso][ID]->AddEntry(histo_Eff4[Iso][ID],"Phase II QCD0", "p");
+			l_[Iso][ID]->AddEntry(histo_Eff5[Iso][ID],"Phase II QCD140", "p");
 			l_[Iso][ID]->AddEntry(histo_Eff6[Iso][ID],"Phase II QCD200", "p");
 
 			histo_Eff1[Iso][ID]->Divide(histo_Sig1[Iso][ID],histo_Back1[Iso][ID],1,1,"b");
 			histo_Eff2[Iso][ID]->Divide(histo_Sig2[Iso][ID],histo_Back2[Iso][ID],1,1,"b");
 			histo_Eff3[Iso][ID]->Divide(histo_Sig3[Iso][ID],histo_Back3[Iso][ID],1,1,"b");
 			histo_Eff4[Iso][ID]->Divide(histo_Sig4[Iso][ID],histo_Back4[Iso][ID],1,1,"b");
+			histo_Eff5[Iso][ID]->Divide(histo_Sig5[Iso][ID],histo_Back5[Iso][ID],1,1,"b");
 			histo_Eff6[Iso][ID]->Divide(histo_Sig6[Iso][ID],histo_Back6[Iso][ID],1,1,"b");
 
 			histo_Eff1[Iso][ID]->SetMaximum(ymax_eff);
@@ -365,6 +373,7 @@
 			histo_Eff2[Iso][ID]->Draw("same");
 			histo_Eff3[Iso][ID]->Draw("same");
 			histo_Eff4[Iso][ID]->Draw("same");
+			histo_Eff5[Iso][ID]->Draw("same");
 			histo_Eff6[Iso][ID]->Draw("same");
 
 			if(Iso==0 && ID==0  )lt1.DrawLatex(xx_1,yy_1,LatexCutSymbol_Tight+Form("Trk03"));
