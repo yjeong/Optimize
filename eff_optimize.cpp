@@ -81,7 +81,7 @@
 	float ty = 0.94;
 	//-------------------------Legend coordinate--------------------
 	float lx1 = 0.55;
-	float ly1 = 0.40;
+	float ly1 = 0.30;
 	float lx2 = 0.84;
 	float ly2 = 0.55;
 	const int IDCut = 2;//0 = Tight, 1 = Loose
@@ -150,8 +150,8 @@
 	Signal_Trk_Loose_Cut = Trk_Loose_Cut+Form("&& recoMuon_signal==1");
 	Signal_PF_Tight_Cut = PF_Loose_Cut+Form("&& recoMuon_signal==1");
 	Signal_PF_Loose_Cut = PF_Tight_Cut+Form("&& recoMuon_signal==1");
-	Signal_PF_Tight_Cut140 = PF_Loose_Cut200+Form("&& recoMuon_signal==1");
-	Signal_PF_Loose_Cut140 = PF_Tight_Cut200+Form("&& recoMuon_signal==1");
+	Signal_PF_Tight_Cut140 = PF_Loose_Cut140+Form("&& recoMuon_signal==1");
+	Signal_PF_Loose_Cut140 = PF_Tight_Cut140+Form("&& recoMuon_signal==1");
 	Signal_PF_Tight_Cut200 = PF_Loose_Cut200+Form("&& recoMuon_signal==1");
 	Signal_PF_Loose_Cut200 = PF_Tight_Cut200+Form("&& recoMuon_signal==1");
 
