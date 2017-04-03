@@ -285,8 +285,20 @@
 			histo_Eff4[Iso][ID]->SetMarkerStyle(34);
 
 			//-------------------------------------------------------------------
-			l_[Iso][ID]->AddEntry(histo_Eff1[Iso][ID],"Phase II Signal PU0", "p");
-			l_[Iso][ID]->AddEntry(histo_Eff2[Iso][ID],"Phase II Signal PU200", "p");
+			if(Iso==0){
+				l_[Iso][ID]->AddEntry(histo_Eff1[Iso][ID],"Phase II Signal PU0", "p");
+				l_[Iso][ID]->AddEntry(histo_Eff2[Iso][ID],"Phase II Signal PU200", "p");
+				l_[Iso][ID]->AddEntry(histo_Eff3[Iso][ID],"Phase II QCD0", "p");
+				l_[Iso][ID]->AddEntry(histo_Eff4[Iso][ID],"Phase II QCD200", "p");
+			}
+			if(Iso==1){
+				if(ID==0){
+					l_[Iso][ID]->AddEntry(histo_Eff1[Iso][ID],"Phase II Signal PU0 PF_{Tight}<0.164", "p");
+					l_[Iso][ID]->AddEntry(histo_Eff2[Iso][ID],"Phase II Signal PU200 PF_{Tight}<0.94", "p");}
+				if(ID==1){
+					l_[Iso][ID]->AddEntry(histo_Eff1[Iso][ID],"Phase II Signal PU0 PF_{Tight}<0.328", "p");
+					l_[Iso][ID]->AddEntry(histo_Eff2[Iso][ID],"Phase II Signal PU200 PF_{Tight}<1.268", "p");}
+			}
 			l_[Iso][ID]->AddEntry(histo_Eff3[Iso][ID],"Phase II QCD0", "p");
 			l_[Iso][ID]->AddEntry(histo_Eff4[Iso][ID],"Phase II QCD200", "p");
 
