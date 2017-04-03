@@ -124,24 +124,28 @@
 
 	Cut_base = "fabs(recoMuon.Pt())>15 && fabs(recoMuon.Eta())<2.4 &&";
 	Trk_Tight_Cut = Cut_base+Form("recoMuon_isTight==1 && recoMuon_TrkIsolation03 < 0.5");
-	Trk_Loose_Cut = Cut_base+Form("recoMuon_isLoose==1 && recoMuon_TrkIsolation03 < 0.5");
-	PF_Tight_Cut = Cut_base+Form("recoMuon_isTight==1 && recoMuon_PFIsolation04 < 1.5");
-	PF_Loose_Cut = Cut_base+Form("recoMuon_isLoose==1 && recoMuon_PFIsolation04 < 2.5");
+	Trk_Loose_Cut = Cut_base+Form("recoMuon_isLoose==1 && recoMuon_TrkIsolation03 < 1.0");
+	PF_Tight_Cut = Cut_base+Form("recoMuon_isTight==1 && recoMuon_PFIsolation04 < 0.164");
+	PF_Loose_Cut = Cut_base+Form("recoMuon_isLoose==1 && recoMuon_PFIsolation04 < 0.328");
+	PF_Tight_Cut200 = Cut_base+Form("recoMuon_isTight==1 && recoMuon_PFIsolation04 < 0.94");
+	PF_Loose_Cut200 = Cut_base+Form("recoMuon_isLoose==1 && recoMuon_PFIsolation04 < 1.268");
 
 	Signal_Trk_Tight_Cut = Trk_Loose_Cut+Form("&& recoMuon_signal==1");
 	Signal_Trk_Loose_Cut = Trk_Tight_Cut+Form("&& recoMuon_signal==1");
 	Signal_PF_Tight_Cut = PF_Loose_Cut+Form("&& recoMuon_signal==1");
 	Signal_PF_Loose_Cut = PF_Tight_Cut+Form("&& recoMuon_signal==1");
+	Signal_PF_Tight_Cut200 = PF_Loose_Cut200+Form("&& recoMuon_signal==1");
+	Signal_PF_Loose_Cut200 = PF_Tight_Cut200+Form("&& recoMuon_signal==1");
 
 	LatexCutSymbol_Tight = "(Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Tight #mu, |#eta| < 2.4, ";
 	LatexCutSymbol_Loose = "(Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Loose #mu, |#eta| < 2.4, ";
 
-	TFile h1(PATH_samples_ZMM14TeV+"zmm.root");
-	TFile h2(PATH_samples_ZMM14TeV+"zmm140.root");
-	TFile h3(PATH_samples_ZMM14TeV+"zmm200.root");
-	TFile h4(PATH_samples_ZMM14TeV+"qcd.root");
-	TFile h5(PATH_samples_ZMM14TeV+"qcd140.root");
-	TFile h6(PATH_samples_ZMM14TeV+"qcd200.root");
+	TFile h1(PATH_samples_ZMM14TeV+"run_ZMM_PU0_pre4_rereco02_ver01.root");
+	TFile h2(PATH_samples_ZMM14TeV+"run_ZMM_PU140_pre4_rereco02_ver01.root");
+	TFile h3(PATH_samples_ZMM14TeV+"run_ZMM_PU200_pre4_rereco02_ver01.root");
+	TFile h4(PATH_samples_ZMM14TeV+"run_QCD_PU0_pre4_rereco02_ver01.root");
+	TFile h5(PATH_samples_ZMM14TeV+"run_QCD_PU140_pre4_rereco02_ver01.root");
+	TFile h6(PATH_samples_ZMM14TeV+"run_QCD_PU200_pre4_rereco02_ver01.root");
 
 	TTree *recottree = (TTree*)h1.Get("MuonAnalyser/reco");
 	TTree *recottree_140 = (TTree*)h2.Get("MuonAnalyser/reco");
@@ -203,16 +207,16 @@
 
 			if(Iso==0 && ID==0  )recottree_200->Project(Form("histo_Sig2%d_%d",Iso,ID),"recoMuon.Pt()",Signal_Trk_Tight_Cut);
 			if(Iso==0 && ID==1  )recottree_200->Project(Form("histo_Sig2%d_%d",Iso,ID),"recoMuon.Pt()",Signal_Trk_Loose_Cut);
-			if(Iso==1 && ID==0  )recottree_200->Project(Form("histo_Sig2%d_%d",Iso,ID),"recoMuon.Pt()",Signal_PF_Tight_Cut);
-			if(Iso==1 && ID==1  )recottree_200->Project(Form("histo_Sig2%d_%d",Iso,ID),"recoMuon.Pt()",Signal_PF_Loose_Cut);
+			if(Iso==1 && ID==0  )recottree_200->Project(Form("histo_Sig2%d_%d",Iso,ID),"recoMuon.Pt()",Signal_PF_Tight_Cut200);
+			if(Iso==1 && ID==1  )recottree_200->Project(Form("histo_Sig2%d_%d",Iso,ID),"recoMuon.Pt()",Signal_PF_Loose_Cut200);
 
 			histo_Back2[Iso][ID] = new TH1F(Form("histo_Back2%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 			histo_Back2[Iso][ID]->Sumw2();
 
 			if(Iso==0 && ID==0  )recottree_200->Project(Form("histo_Back2%d_%d",Iso,ID),"recoMuon.Pt()",Trk_Tight_Cut);
 			if(Iso==0 && ID==1  )recottree_200->Project(Form("histo_Back2%d_%d",Iso,ID),"recoMuon.Pt()",Trk_Loose_Cut);
-			if(Iso==1 && ID==0  )recottree_200->Project(Form("histo_Back2%d_%d",Iso,ID),"recoMuon.Pt()",PF_Tight_Cut);
-			if(Iso==1 && ID==1  )recottree_200->Project(Form("histo_Back2%d_%d",Iso,ID),"recoMuon.Pt()",PF_Loose_Cut);
+			if(Iso==1 && ID==0  )recottree_200->Project(Form("histo_Back2%d_%d",Iso,ID),"recoMuon.Pt()",PF_Tight_Cut200);
+			if(Iso==1 && ID==1  )recottree_200->Project(Form("histo_Back2%d_%d",Iso,ID),"recoMuon.Pt()",PF_Loose_Cut200);
 
 			histo_Eff2[Iso][ID] = new TH1F(Form("histo_Eff2%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 
@@ -241,16 +245,16 @@
 
 			if(Iso==0 && ID==0  )recottree_QCD200->Project(Form("histo_Sig4%d_%d",Iso,ID),"recoMuon.Pt()",Signal_Trk_Tight_Cut);
 			if(Iso==0 && ID==1  )recottree_QCD200->Project(Form("histo_Sig4%d_%d",Iso,ID),"recoMuon.Pt()",Signal_Trk_Loose_Cut);
-			if(Iso==1 && ID==0  )recottree_QCD200->Project(Form("histo_Sig4%d_%d",Iso,ID),"recoMuon.Pt()",Signal_PF_Tight_Cut);
-			if(Iso==1 && ID==1  )recottree_QCD200->Project(Form("histo_Sig4%d_%d",Iso,ID),"recoMuon.Pt()",Signal_PF_Loose_Cut);
+			if(Iso==1 && ID==0  )recottree_QCD200->Project(Form("histo_Sig4%d_%d",Iso,ID),"recoMuon.Pt()",Signal_PF_Tight_Cut200);
+			if(Iso==1 && ID==1  )recottree_QCD200->Project(Form("histo_Sig4%d_%d",Iso,ID),"recoMuon.Pt()",Signal_PF_Loose_Cut200);
 
 			histo_Back4[Iso][ID] = new TH1F(Form("histo_Back4%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 			histo_Back4[Iso][ID]->Sumw2();
 
 			if(Iso==0 && ID==0  )recottree_QCD200->Project(Form("histo_Back4%d_%d",Iso,ID),"recoMuon.Pt()",Trk_Tight_Cut);
 			if(Iso==0 && ID==1  )recottree_QCD200->Project(Form("histo_Back4%d_%d",Iso,ID),"recoMuon.Pt()",Trk_Loose_Cut);
-			if(Iso==1 && ID==0  )recottree_QCD200->Project(Form("histo_Back4%d_%d",Iso,ID),"recoMuon.Pt()",PF_Tight_Cut);
-			if(Iso==1 && ID==1  )recottree_QCD200->Project(Form("histo_Back4%d_%d",Iso,ID),"recoMuon.Pt()",PF_Loose_Cut);
+			if(Iso==1 && ID==0  )recottree_QCD200->Project(Form("histo_Back4%d_%d",Iso,ID),"recoMuon.Pt()",PF_Tight_Cut200);
+			if(Iso==1 && ID==1  )recottree_QCD200->Project(Form("histo_Back4%d_%d",Iso,ID),"recoMuon.Pt()",PF_Loose_Cut200);
 
 			histo_Eff4[Iso][ID] = new TH1F(Form("histo_Eff4%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 			//---------------------------histogram design------------------------------------

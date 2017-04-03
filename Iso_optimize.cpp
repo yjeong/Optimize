@@ -84,7 +84,7 @@
 	float ly1 = 0.60;
 	float lx2 = 0.84;
 	float ly2 = 0.75;
-	const int VertexCut = 6;
+	const int VertexCut = 3;
 	const int IDCut = 2;//0 = Tight, 1 = Loose
 	const int ISOCut = 2;//0 = TrkIso, 1 = PFIso
 	double nev_1, nev_2, nev_3, nev_4; 
@@ -100,7 +100,7 @@
 	float eta = 2.4;
 	int hIso_pt[]={pt,pt,pt,pt,pt,pt};//pt
 	float hIso_eta[]={eta,eta,eta,eta,eta,eta};//eta
-	float hIso_Vertex[]={0.1,0.2,0.3,0.4,0.5};//vertex cut Tight
+	float hIso_Vertex[]={0.1,0.5};//vertex cut Tight
 
 	TString PATH_samples_ZMM14TeV;
 	PATH_samples_ZMM14TeV = "/cms/scratch/quark2930/Work/muon_upgrade/samples/";//KISTI
@@ -118,14 +118,19 @@
 	Signal_Tight_Cut = Loose_Cut+Form(" && recoMuon_signal==1");
 	Signal_Loose_Cut = Tight_Cut+Form(" && recoMuon_signal==1");
 
-	TFile h1(PATH_samples_ZMM14TeV+"zmm.root");
-	TFile h2(PATH_samples_ZMM14TeV+"zmm200.root");
-	TFile h3(PATH_samples_ZMM14TeV+"qcd.root");
-	TFile h4(PATH_samples_ZMM14TeV+"qcd200.root");
+	TFile h1(PATH_samples_ZMM14TeV+"run_ZMM_PU0_pre4_rereco02_ver01.root");
+	TFile h2(PATH_samples_ZMM14TeV+"run_ZMM_PU140_pre4_rereco02_ver01.root");
+	TFile h3(PATH_samples_ZMM14TeV+"run_ZMM_PU200_pre4_rereco02_ver01.root");
+	TFile h4(PATH_samples_ZMM14TeV+"run_QCD_PU0_pre4_rereco02_ver01.root");
+	TFile h5(PATH_samples_ZMM14TeV+"run_QCD_PU140_pre4_rereco02_ver01.root");
+	TFile h6(PATH_samples_ZMM14TeV+"run_QCD_PU200_pre4_rereco02_ver01.root");
+
 	TTree *recottree = (TTree*)h1.Get("MuonAnalyser/reco");
-	TTree *recottree_200 = (TTree*)h2.Get("MuonAnalyser/reco");
-	TTree *recottree_QCD = (TTree*)h3.Get("MuonAnalyser/reco");
-	TTree *recottree_QCD200 = (TTree*)h4.Get("MuonAnalyser/reco");
+	TTree *recottree_140 = (TTree*)h2.Get("MuonAnalyser/reco");
+	TTree *recottree_200 = (TTree*)h3.Get("MuonAnalyser/reco");
+	TTree *recottree_QCD = (TTree*)h4.Get("MuonAnalyser/reco");
+	TTree *recottree_QCD140 = (TTree*)h5.Get("MuonAnalyser/reco");
+	TTree *recottree_QCD200 = (TTree*)h6.Get("MuonAnalyser/reco");
 
 	for(int Iso=0; Iso<ISOCut; Iso++){
 		for(int ID=0; ID<IDCut; ID++){
@@ -160,15 +165,15 @@
 				l_[Iso][ID][Vertex]->SetTextSize(0.035);
 
 				histo_Iso1[Iso][ID][Vertex] = new TH1F(Form("histo_%d_%d_%d",Iso,ID,Vertex),Form(""),nbin_iso,xmin_iso,xmax_iso);
-				if(Iso==0 && ID==0 && Vertex!=5)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==0 && ID==1 && Vertex!=5)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==1 && ID==0 && Vertex!=5)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==1 && ID==1 && Vertex!=5)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==0 && ID==0 && Vertex!=2)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==0 && ID==1 && Vertex!=2)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==1 && ID==0 && Vertex!=2)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==1 && ID==1 && Vertex!=2)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
 
-				if(Iso==0 && ID==0 && Vertex==5)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Tight_Cut);
-				if(Iso==0 && ID==1 && Vertex==5)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Loose_Cut);
-				if(Iso==1 && ID==0 && Vertex==5)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Tight_Cut);
-				if(Iso==1 && ID==1 && Vertex==5)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Loose_Cut);
+				if(Iso==0 && ID==0 && Vertex==2)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Tight_Cut);
+				if(Iso==0 && ID==1 && Vertex==2)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Loose_Cut);
+				if(Iso==1 && ID==0 && Vertex==2)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Tight_Cut);
+				if(Iso==1 && ID==1 && Vertex==2)recottree->Project(Form("histo_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Loose_Cut);
 
 				l_[Iso][ID][Vertex]->AddEntry(histo_Iso1[Iso][ID][Vertex],"Phase II Signal PU0", "p");
 				histo_Iso1[Iso][ID][Vertex]->SetLineColor(kGreen-1);
@@ -183,15 +188,15 @@
 				if(Iso==1)histo_Iso1[Iso][ID][Vertex]->GetXaxis()->SetTitle("#mu PFIsolation R = 0.4");
 
 				histo_Iso2[Iso][ID][Vertex] = new TH1F(Form("histo2_%d_%d_%d",Iso,ID,Vertex),Form(""),nbin_iso,xmin_iso,xmax_iso);
-				if(Iso==0 && ID==0 && Vertex!=5)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==0 && ID==1 && Vertex!=5)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==1 && ID==0 && Vertex!=5)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==1 && ID==1 && Vertex!=5)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==0 && ID==0 && Vertex!=2)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==0 && ID==1 && Vertex!=2)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==1 && ID==0 && Vertex!=2)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==1 && ID==1 && Vertex!=2)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
 
-				if(Iso==0 && ID==0 && Vertex==5)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Tight_Cut);
-                                if(Iso==0 && ID==1 && Vertex==5)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Loose_Cut);
-                                if(Iso==1 && ID==0 && Vertex==5)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Tight_Cut);
-                                if(Iso==1 && ID==1 && Vertex==5)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Loose_Cut);
+				if(Iso==0 && ID==0 && Vertex==2)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Tight_Cut);
+				if(Iso==0 && ID==1 && Vertex==2)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Signal_Loose_Cut);
+				if(Iso==1 && ID==0 && Vertex==2)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Tight_Cut);
+				if(Iso==1 && ID==1 && Vertex==2)recottree_200->Project(Form("histo2_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Signal_Loose_Cut);
 
 				histo_Iso2[Iso][ID][Vertex]->SetMarkerStyle(20);
 				histo_Iso2[Iso][ID][Vertex]->SetMarkerSize(size);
@@ -201,15 +206,15 @@
 				histo_Iso2[Iso][ID][Vertex]->SetMarkerColor(kRed);
 
 				histo_Iso3[Iso][ID][Vertex] = new TH1F(Form("histo3_%d_%d_%d",Iso,ID,Vertex),Form(""),nbin_iso,xmin_iso,xmax_iso);
-				if(Iso==0 && ID==0 && Vertex!=5)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==0 && ID==1 && Vertex!=5)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==1 && ID==0 && Vertex!=5)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==1 && ID==1 && Vertex!=5)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==0 && ID==0 && Vertex!=2)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==0 && ID==1 && Vertex!=2)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==1 && ID==0 && Vertex!=2)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==1 && ID==1 && Vertex!=2)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
 
-				if(Iso==0 && ID==0 && Vertex==5)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Tight_Cut);
-                                if(Iso==0 && ID==1 && Vertex==5)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Loose_Cut);
-                                if(Iso==1 && ID==0 && Vertex==5)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Tight_Cut);
-                                if(Iso==1 && ID==1 && Vertex==5)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Loose_Cut);
+				if(Iso==0 && ID==0 && Vertex==2)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Tight_Cut);
+				if(Iso==0 && ID==1 && Vertex==2)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Loose_Cut);
+				if(Iso==1 && ID==0 && Vertex==2)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Tight_Cut);
+				if(Iso==1 && ID==1 && Vertex==2)recottree_QCD->Project(Form("histo3_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Loose_Cut);
 
 				histo_Iso3[Iso][ID][Vertex]->SetLineColor(kBlack);
 				histo_Iso3[Iso][ID][Vertex]->SetMarkerColor(kBlack);
@@ -219,15 +224,15 @@
 				l_[Iso][ID][Vertex]->AddEntry(histo_Iso3[Iso][ID][Vertex],"Phase II QCD0", "p");
 
 				histo_Iso4[Iso][ID][Vertex] = new TH1F(Form("histo4_%d_%d_%d",Iso,ID,Vertex),Form(""),nbin_iso,xmin_iso,xmax_iso);
-				if(Iso==0 && ID==0 && Vertex!=5)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==0 && ID==1 && Vertex!=5)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==1 && ID==0 && Vertex!=5)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
-				if(Iso==1 && ID==1 && Vertex!=5)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==0 && ID==0 && Vertex!=2)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==0 && ID==1 && Vertex!=2)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==1 && ID==0 && Vertex!=2)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Tight_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
+				if(Iso==1 && ID==1 && Vertex!=2)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Loose_Cut+Form("&& abs(recoMuon_poszPV0 - recoMuon_poszSimPV) < %f",hIso_Vertex[Vertex]));
 
-				if(Iso==0 && ID==0 && Vertex==5)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Tight_Cut);
-                                if(Iso==0 && ID==1 && Vertex==5)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Loose_Cut);
-                                if(Iso==1 && ID==0 && Vertex==5)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Tight_Cut);
-                                if(Iso==1 && ID==1 && Vertex==5)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Loose_Cut);
+				if(Iso==0 && ID==0 && Vertex==2)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Tight_Cut);
+				if(Iso==0 && ID==1 && Vertex==2)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_TrkIsolation03",Loose_Cut);
+				if(Iso==1 && ID==0 && Vertex==2)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Tight_Cut);
+				if(Iso==1 && ID==1 && Vertex==2)recottree_QCD200->Project(Form("histo4_%d_%d_%d",Iso,ID,Vertex),"recoMuon_PFIsolation04",Loose_Cut);
 
 				histo_Iso4[Iso][ID][Vertex]->SetLineColor(kBlue);
 				histo_Iso4[Iso][ID][Vertex]->SetMarkerColor(kBlue);
@@ -250,11 +255,11 @@
 				histo_Iso3[Iso][ID][Vertex]->Draw("same");
 				histo_Iso4[Iso][ID][Vertex]->Draw("same");
 
-				if(ID==0 && Vertex!=5)lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen vtx #mu}| < %1.1f}",hIso_pt[Vertex],hIso_eta[Vertex],hIso_Vertex[Vertex]));
-				if(ID==1 && Vertex!=5)lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen vtx #mu}| < %1.1f}",hIso_pt[Vertex],hIso_eta[Vertex],hIso_Vertex[Vertex]));
+				if(ID==0 && Vertex!=2)lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen level vertex #mu}| < %1.1f}",hIso_pt[Vertex],hIso_eta[Vertex],hIso_Vertex[Vertex]));
+				if(ID==1 && Vertex!=2)lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen level vertex #mu}| < %1.1f}",hIso_pt[Vertex],hIso_eta[Vertex],hIso_Vertex[Vertex]));
 
-				if(ID==0 && Vertex==5)lt1.DrawLatex(xx_1,yy_1,Form("Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,",hIso_pt[Vertex],hIso_eta[Vertex]));
-                                if(ID==1 && Vertex==5)lt1.DrawLatex(xx_1,yy_1,Form("Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,",hIso_pt[Vertex],hIso_eta[Vertex]));
+				if(ID==0 && Vertex==2)lt1.DrawLatex(xx_1,yy_1,Form("Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,",hIso_pt[Vertex],hIso_eta[Vertex]));
+				if(ID==1 && Vertex==2)lt1.DrawLatex(xx_1,yy_1,Form("Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,",hIso_pt[Vertex],hIso_eta[Vertex]));
 
 				lt2.DrawLatex(x_1,y_1,"CMS");
 				lt3.DrawLatex(x_2,y_2,"Simulation");
@@ -262,15 +267,15 @@
 				l_[Iso][ID][Vertex]->Draw();
 
 				//if(ID==0)canvIso_[Iso][ID][Vertex]->Print(Form("PFIsolation04_Tight_cutZ<%1.1f.png",hIso_Vertex[Vertex]));
-				if(Iso==0 && ID==0 && Vertex!=5)canvIso_[Iso][ID][Vertex]->Print(Signal_Tight_Cut+Form(" && Trk03_cutZ<%1.1f_Pt>%dGeV_eta>%1.1f",hIso_Vertex[Vertex],hIso_pt[Vertex],hIso_eta[Vertex])+".png");
-				if(Iso==0 && ID==1 && Vertex!=5)canvIso_[Iso][ID][Vertex]->Print(Signal_Loose_Cut+Form(" && Trk03_cutZ<%1.1f_Pt>%dGev_eta>%1.1f",hIso_Vertex[Vertex],hIso_pt[Vertex],hIso_eta[Vertex])+".png");
-				if(Iso==1 && ID==0 && Vertex!=5)canvIso_[Iso][ID][Vertex]->Print(Tight_Cut+Form(" && PF04_cutZ<%1.1f_Pt>%dGev_eta>%1.1f",hIso_Vertex[Vertex],hIso_pt[Vertex],hIso_eta[Vertex])+".png");
-				if(Iso==1 && ID==1 && Vertex!=5)canvIso_[Iso][ID][Vertex]->Print(Loose_Cut+Form(" && PF04_cutZ<%1.1f_Pt>%dGev_eta>%1.1f",hIso_Vertex[Vertex],hIso_pt[Vertex],hIso_eta[Vertex])+".png");
+				if(Iso==0 && ID==0 && Vertex!=2)canvIso_[Iso][ID][Vertex]->Print(Signal_Tight_Cut+Form(" && Trk03_cutZ<%1.1f_Pt>%dGeV_eta>%1.1f",hIso_Vertex[Vertex],hIso_pt[Vertex],hIso_eta[Vertex])+".png");
+				if(Iso==0 && ID==1 && Vertex!=2)canvIso_[Iso][ID][Vertex]->Print(Signal_Loose_Cut+Form(" && Trk03_cutZ<%1.1f_Pt>%dGev_eta>%1.1f",hIso_Vertex[Vertex],hIso_pt[Vertex],hIso_eta[Vertex])+".png");
+				if(Iso==1 && ID==0 && Vertex!=2)canvIso_[Iso][ID][Vertex]->Print(Tight_Cut+Form(" && PF04_cutZ<%1.1f_Pt>%dGev_eta>%1.1f",hIso_Vertex[Vertex],hIso_pt[Vertex],hIso_eta[Vertex])+".png");
+				if(Iso==1 && ID==1 && Vertex!=2)canvIso_[Iso][ID][Vertex]->Print(Loose_Cut+Form(" && PF04_cutZ<%1.1f_Pt>%dGev_eta>%1.1f",hIso_Vertex[Vertex],hIso_pt[Vertex],hIso_eta[Vertex])+".png");
 
-				if(Iso==0 && ID==0 && Vertex==5)canvIso_[Iso][ID][Vertex]->Print(Signal_Tight_Cut+Form(" && Trk03 && Pt>%dGeV && #eta>%1.1f",hIso_pt[Vertex],hIso_eta[Vertex])+".png");
-                                if(Iso==0 && ID==1 && Vertex==5)canvIso_[Iso][ID][Vertex]->Print(Signal_Loose_Cut+Form(" && Trk03 && Pt>%dGev && #eta>%1.1f",hIso_pt[Vertex],hIso_eta[Vertex])+".png");
-                                if(Iso==1 && ID==0 && Vertex==5)canvIso_[Iso][ID][Vertex]->Print(Tight_Cut+Form(" && PF04 && Pt>%dGev && #eta>%1.1f",hIso_pt[Vertex],hIso_eta[Vertex])+".png");
-                                if(Iso==1 && ID==1 && Vertex==5)canvIso_[Iso][ID][Vertex]->Print(Loose_Cut+Form(" && PF04 && Pt>%dGev && eta>%1.1f",hIso_pt[Vertex],hIso_eta[Vertex])+".png");
+				if(Iso==0 && ID==0 && Vertex==2)canvIso_[Iso][ID][Vertex]->Print(Signal_Tight_Cut+Form(" && Trk03 && Pt>%dGeV && #eta>%1.1f",hIso_pt[Vertex],hIso_eta[Vertex])+".png");
+				if(Iso==0 && ID==1 && Vertex==2)canvIso_[Iso][ID][Vertex]->Print(Signal_Loose_Cut+Form(" && Trk03 && Pt>%dGev && #eta>%1.1f",hIso_pt[Vertex],hIso_eta[Vertex])+".png");
+				if(Iso==1 && ID==0 && Vertex==2)canvIso_[Iso][ID][Vertex]->Print(Tight_Cut+Form(" && PF04 && Pt>%dGev && #eta>%1.1f",hIso_pt[Vertex],hIso_eta[Vertex])+".png");
+				if(Iso==1 && ID==1 && Vertex==2)canvIso_[Iso][ID][Vertex]->Print(Loose_Cut+Form(" && PF04 && Pt>%dGev && eta>%1.1f",hIso_pt[Vertex],hIso_eta[Vertex])+".png");
 			}
 		}
 	}
