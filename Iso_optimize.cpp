@@ -118,12 +118,12 @@
 	Signal_Tight_Cut = Loose_Cut+Form(" && recoMuon_signal==1");
 	Signal_Loose_Cut = Tight_Cut+Form(" && recoMuon_signal==1");
 
-	TFile h1(PATH_samples_ZMM14TeV+"run_ZMM_PU0_pre4_rereco02_ver01.root");
-	TFile h2(PATH_samples_ZMM14TeV+"run_ZMM_PU140_pre4_rereco02_ver01.root");
-	TFile h3(PATH_samples_ZMM14TeV+"run_ZMM_PU200_pre4_rereco02_ver01.root");
-	TFile h4(PATH_samples_ZMM14TeV+"run_QCD_PU0_pre4_rereco02_ver01.root");
-	TFile h5(PATH_samples_ZMM14TeV+"run_QCD_PU140_pre4_rereco02_ver01.root");
-	TFile h6(PATH_samples_ZMM14TeV+"run_QCD_PU200_pre4_rereco02_ver01.root");
+	TFile h1(PATH_samples_ZMM14TeV+"zmm.root");
+	TFile h2(PATH_samples_ZMM14TeV+"zmm140.root");
+	TFile h3(PATH_samples_ZMM14TeV+"zmm200.root");
+	TFile h4(PATH_samples_ZMM14TeV+"qcd.root");
+	TFile h5(PATH_samples_ZMM14TeV+"qcd140.root");
+	TFile h6(PATH_samples_ZMM14TeV+"qcd200.root");
 
 	TTree *recottree = (TTree*)h1.Get("MuonAnalyser/reco");
 	TTree *recottree_140 = (TTree*)h2.Get("MuonAnalyser/reco");
