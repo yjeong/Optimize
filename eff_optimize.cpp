@@ -155,8 +155,8 @@
 	Signal_PF_Tight_Cut200 = PF_Tight_Cut200+Form("&& recoMuon_signal==1");
 	Signal_PF_Loose_Cut200 = PF_Loose_Cut200+Form("&& recoMuon_signal==1");
 
-	LatexCutSymbol_Tight = "(Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Tight #mu, |#eta| < 2.4, ";
-	LatexCutSymbol_Loose = "(Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Loose #mu, |#eta| < 2.4, ";
+	LatexCutSymbol_Tight = "Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Tight #mu, |#eta| < 2.4, ";
+	LatexCutSymbol_Loose = "Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Loose #mu, |#eta| < 2.4, ";
 
 	TFile h1(PATH_samples_ZMM14TeV+"run_ZMM_PU0_pre4_rereco02_ver01.root");
 	TFile h2(PATH_samples_ZMM14TeV+"run_ZMM_PU140_pre4_rereco02_ver01.root");
