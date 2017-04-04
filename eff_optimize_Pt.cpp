@@ -80,9 +80,9 @@
 	float tx = 0.9;
 	float ty = 0.94;
 	//-------------------------Legend coordinate--------------------
-	float lx1 = 0.55;
+	float lx1 = 0.52;
 	float ly1 = 0.30;
-	float lx2 = 0.84;
+	float lx2 = 0.81;
 	float ly2 = 0.55;
 	const int IDCut = 2;//0 = Tight, 1 = Loose
 	const int ISOCut = 2;//0 = TrkIso, 1 = PFIso
