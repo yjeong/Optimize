@@ -117,8 +117,8 @@
 	float hEff_eta[]={eta,eta};//eta
 
 	TString PATH_samples_ZMM14TeV;
-	//PATH_samples_ZMM14TeV = "/cms/scratch/quark2930/Work/muon_upgrade/samples/";//KISTI
-	PATH_samples_ZMM14TeV = "/d3/scratch/yonghojeong57/CMSSW_9_0_0_pre4/src/MuonPerformance/MuonAnalyser/test/";//KNU
+	PATH_samples_ZMM14TeV = "/cms/scratch/quark2930/Work/muon_upgrade/samples/";//KISTI
+	//PATH_samples_ZMM14TeV = "/d3/scratch/yonghojeong57/CMSSW_9_0_0_pre4/src/MuonPerformance/MuonAnalyser/test/";//KNU
 	//PATH_samples_ZMM14TeV = "/pnfs/user/yonghojeong57/CMSSW_9_0_0_pre4/src/MuonPerformance/MuonAnalyser/test/";//UOS
 	//PATH_samples_ZMM14TeV = "/afs/cern.ch/work/y/yjeong/CMSSW_9_0_0_pre4/src/MuonPerformance/MuonAnalyser/test/";//CERN
 
@@ -148,15 +148,15 @@
 
 	Signal_Trk_Tight_Cut = Trk_Tight_Cut+Form("&& recoMuon_signal==1");
 	Signal_Trk_Loose_Cut = Trk_Loose_Cut+Form("&& recoMuon_signal==1");
-	Signal_PF_Tight_Cut = PF_Loose_Cut+Form("&& recoMuon_signal==1");
-	Signal_PF_Loose_Cut = PF_Tight_Cut+Form("&& recoMuon_signal==1");
-	Signal_PF_Tight_Cut140 = PF_Loose_Cut140+Form("&& recoMuon_signal==1");
-	Signal_PF_Loose_Cut140 = PF_Tight_Cut140+Form("&& recoMuon_signal==1");
-	Signal_PF_Tight_Cut200 = PF_Loose_Cut200+Form("&& recoMuon_signal==1");
-	Signal_PF_Loose_Cut200 = PF_Tight_Cut200+Form("&& recoMuon_signal==1");
+	Signal_PF_Tight_Cut = PF_Tight_Cut+Form("&& recoMuon_signal==1");
+	Signal_PF_Loose_Cut = PF_Loose_Cut+Form("&& recoMuon_signal==1");
+	Signal_PF_Tight_Cut140 = PF_Tight_Cut140+Form("&& recoMuon_signal==1");
+	Signal_PF_Loose_Cut140 = PF_Loose_Cut140+Form("&& recoMuon_signal==1");
+	Signal_PF_Tight_Cut200 = PF_Tight_Cut200+Form("&& recoMuon_signal==1");
+	Signal_PF_Loose_Cut200 = PF_Loose_Cut200+Form("&& recoMuon_signal==1");
 
-	LatexCutSymbol_Tight = "Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Tight #mu, |#eta| < 2.4, ";
-	LatexCutSymbol_Loose = "Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Loose #mu, |#eta| < 2.4, ";
+	LatexCutSymbol_Tight = "(Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Tight #mu, |#eta| < 2.4, ";
+	LatexCutSymbol_Loose = "(Z/#gamma* #rightarrow#font[12]{#mu#mu} , P_{t} > 15 GeV, Loose #mu, |#eta| < 2.4, ";
 
 	TFile h1(PATH_samples_ZMM14TeV+"run_ZMM_PU0_pre4_rereco02_ver01.root");
 	TFile h2(PATH_samples_ZMM14TeV+"run_ZMM_PU140_pre4_rereco02_ver01.root");
