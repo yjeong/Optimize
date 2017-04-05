@@ -113,8 +113,10 @@
 
 	int pt = 15;
 	float eta = 2.4;
+	float vertex = 0.5;
 	int hEff_pt[]={pt,pt};//pt
 	float hEff_eta[]={eta,eta};//eta
+	float hEff_Vertex[]={vertex,vertex};
 
 	TString PATH_samples_ZMM14TeV;
 	PATH_samples_ZMM14TeV = "/cms/scratch/quark2930/Work/muon_upgrade/samples/";//KISTI
@@ -398,10 +400,10 @@
 			histo_Eff5[Iso][ID]->Draw("same");
 			histo_Eff6[Iso][ID]->Draw("same");
 
-			if(Iso==0 && ID==0  )lt1.DrawLatex(xx_1,yy_1,LatexCutSymbol_Tight+Form("Trk03"));
-			if(Iso==0 && ID==1  )lt1.DrawLatex(xx_1,yy_1,LatexCutSymbol_Loose+Form("Trk03"));
-			if(Iso==1 && ID==0  )lt1.DrawLatex(xx_1,yy_1,LatexCutSymbol_Tight+Form("PF04"));
-			if(Iso==1 && ID==1  )lt1.DrawLatex(xx_1,yy_1,LatexCutSymbol_Loose+Form("PF04"));
+			if(Iso==0 && ID==0  )lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen level vertex #mu}| < %1.1f, Trk03}",hEff_pt[ID],hEff_eta[ID],hEff_Vertex[ID]));
+			if(Iso==0 && ID==1  )lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen level vertex #mu}| < %1.1f, Trk03}",hEff_pt[ID],hEff_eta[ID],hEff_Vertex[ID]));
+			if(Iso==1 && ID==0  )lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen level vertex #mu}| < %1.1f, PF04}",hEff_pt[ID],hEff_eta[ID],hEff_Vertex[ID]));
+			if(Iso==1 && ID==1  )lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen level vertex #mu}| < %1.1f, PF04}",hEff_pt[ID],hEff_eta[ID],hEff_Vertex[ID]));
 
 			lt2.DrawLatex(x_1,y_1,"CMS");
 			lt3.DrawLatex(x_2,y_2,"Simulation");
