@@ -185,7 +185,7 @@
 			float xmin_eff = -2.5;
 			float xmax_eff = 2.5;
 			float ymax_eff = 1.2;
-			//float ymin_eff = 0;
+			float ymin_eff = 0;
 			float size = 0.8;
 			canvIso_[Iso][ID] = new TCanvas();
 			//canvIso_[Iso][ID]->SetLogy();
@@ -374,7 +374,7 @@
 			histo_Eff6[Iso][ID]->Divide(histo_Sig6[Iso][ID],histo_Back6[Iso][ID],1,1,"b");
 
 			histo_Eff1[Iso][ID]->SetMaximum(ymax_eff);
-			//histo_Eff1[Iso][ID]->SetMinimum(ymin_eff);
+			histo_Eff1[Iso][ID]->SetMinimum(ymin_eff);
 
 			histo_Eff1[Iso][ID]->Draw();
 			histo_Eff2[Iso][ID]->Draw("same");
