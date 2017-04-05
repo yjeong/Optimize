@@ -320,7 +320,7 @@
 			histo_Eff6[Iso][ID] = new TH1F(Form("histo_Eff6%d_%d",Iso,ID),Form(""),nbin_eff,xmin_eff,xmax_eff);
 			//---------------------------histogram design------------------------------------
 
-			histo_Eff1[Iso][ID]->GetYaxis()->SetTitle("Efficiency #mu events");
+			histo_Eff1[Iso][ID]->GetYaxis()->SetTitle("#mu Background rate & Efficiency");
 			histo_Eff1[Iso][ID]->GetXaxis()->SetTitle("#mu P_{t}");
 			histo_Eff1[Iso][ID]->SetLineColor(kGreen-1);
 			histo_Eff1[Iso][ID]->SetMarkerColor(kGreen-1);
