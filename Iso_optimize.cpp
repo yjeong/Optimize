@@ -255,8 +255,8 @@
 				histo_Iso3[Iso][ID][Vertex]->Draw("same");
 				histo_Iso4[Iso][ID][Vertex]->Draw("same");
 
-				if(ID==0 && Vertex!=2)lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen level vertex #mu}| < %1.1f}",hIso_pt[Vertex],hIso_eta[Vertex],hIso_Vertex[Vertex]));
-				if(ID==1 && Vertex!=2)lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,}{|Z_{PV0} - Z_{Gen level vertex #mu}| < %1.1f}",hIso_pt[Vertex],hIso_eta[Vertex],hIso_Vertex[Vertex]));
+				if(ID==0 && Vertex!=2)lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,}{|Z_{reco} - Z_{Sim}| < %1.1f}",hIso_pt[Vertex],hIso_eta[Vertex],hIso_Vertex[Vertex]));
+				if(ID==1 && Vertex!=2)lt1.DrawLatex(xx_1,yy_1,Form("#splitline{Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,}{|Z_{reco} - Z_{Sim}| < %1.1f}",hIso_pt[Vertex],hIso_eta[Vertex],hIso_Vertex[Vertex]));
 
 				if(ID==0 && Vertex==2)lt1.DrawLatex(xx_1,yy_1,Form("Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Tight #mu, |#eta| < %1.1f,",hIso_pt[Vertex],hIso_eta[Vertex]));
 				if(ID==1 && Vertex==2)lt1.DrawLatex(xx_1,yy_1,Form("Z/#gamma* #rightarrow #font[12]{#mu#mu} , P_{t} > %d GeV, Loose #mu, |#eta| < %1.1f,",hIso_pt[Vertex],hIso_eta[Vertex]));
